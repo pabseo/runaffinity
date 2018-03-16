@@ -8,3 +8,4 @@ CREATE TABLE `TAG` (
 select * from TAG;
 insert into TAG (nome, descripcion) values ('Montaña', 'Transcorre en montaña');
 insert into TAG (nome, descripcion) values ('Ciclismo', 'Utilización de bicicleta');
+insert into TAG (nome, descripcion) values ('Agua', 'Transcorre en parte ou totalidade por auga');
