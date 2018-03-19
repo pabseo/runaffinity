@@ -117,7 +117,9 @@ insert into COMENTARIO (comentario, idEdicion, idUsuario, data_alta) values ('Ca
 CREATE TABLE `TAG_EVENTO` (
   `idEvento` int(5) NOT NULL,
   `idTag` int(5) NOT NULL,
-  PRIMARY KEY (`idEvento`,`idTag`)
+  PRIMARY KEY (`idEvento`,`idTag`),
+  FOREIGN KEY (`idEvento`) REFERENCES EVENTO(`idEvento`),
+  FOREIGN KEY (`idTag`) REFERENCES TAG(`idTag`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 insert into TAG_EVENTO values(1,2);
 
@@ -130,8 +132,33 @@ CREATE TABLE `PARTICIPANTE_EDICION` (
   `MMP_tipo_proba` int(1),
   `MMP_na_proba` int(1),
   `tiempo` varchar(100),
-  PRIMARY KEY (`idParticipante`,`idEdicion`)
+  PRIMARY KEY (`idParticipante`,`idEdicion`),
+  FOREIGN KEY (`idParticipante`) REFERENCES PARTICIPANTE(`idParticipante`),
+  FOREIGN KEY (`idEdicion`) REFERENCES EDICION(`idEdicion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 insert into PARTICIPANTE_EDICION values(1,1,23,1,1,0,1,'2h:56');
+
+CREATE TABLE `FACTOR_EDICION` (
+  `idFactorEdicion` int(6) NOT NULL AUTO_INCREMENT,
+  `idFactorPuntuacion` int(3) NOT NULL,
+  `idEdicion` int(6) NOT NULL,  
+   PRIMARY KEY (`idFactorEdicion`),
+   FOREIGN KEY (`idFactorPuntuacion`) REFERENCES FACTOR_PUNTUACION(`idFactorPuntuacion`),
+   FOREIGN KEY (`idEdicion`) REFERENCES EDICION(`idEdicion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+insert into FACTOR_EDICION(idFactorPuntuacion,idEdicion) values(1,1);
+
+CREATE TABLE `FACTOR_EDICION_USUARIO` (
+  `idFactorEdicion` int(6) NOT NULL,  
+  `idUsuario` int(5) NOT NULL,
+  `puntuacion` int(2) NOT NULL,
+   PRIMARY KEY (`idFactorEdicion`,`idUsuario`),
+   FOREIGN KEY (`idFactorEdicion`) REFERENCES FACTOR_EDICION(`idFactorEdicion`),   
+   FOREIGN KEY (`idUsuario`) REFERENCES USUARIO(`idUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+insert into FACTOR_EDICION_USUARIO values(1,1,3);
+
+
+
 
 
